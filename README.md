@@ -3,7 +3,11 @@ Movie Recommender using Flask, Docker and Machine Learning
 
 ## How to run:
 
-`export FLASK_APP=hello.py`
+`docker-compose up` (from the root, which is: /mvr)
+
+
+## Resources
+`export FLASK_APP=app.py`
 
 `flask run`
 
