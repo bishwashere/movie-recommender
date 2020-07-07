@@ -12,8 +12,8 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 def preprocessing():
-    df1=pd.read_csv('credits.csv')
-    df2=pd.read_csv('movies.csv')
+    df1=pd.read_csv('dataset/credits.csv')
+    df2=pd.read_csv('dataset/movies.csv')
 
     df1.columns = ['id','tittle','cast','crew']
     df2= df2.merge(df1,on='id')
