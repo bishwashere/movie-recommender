@@ -1,1 +1,5 @@
-Flask==1.0
+Flask
+numpy
+scipy
+scikit-learn
+pandas

@@ -1,11 +1,23 @@
 version: '3'
 
 services:
-  webapp:
-    image: webapp
-    restart: always
+  # webapp:
+  #   image: webapp
+  #   restart: always
+  #   build:
+  #     context: ./src
+  #   container_name: webapp-c
+  #   ports:
+  #     - "5000:5001"
+
+  similar-ten-webapp:
+    image: similar-ten-webapp
+    # restart: always
     build:
-      context: ./src
-    container_name: webapp-c
+      context: ./src/web/similarTen
+    container_name: similarTen-webapp-c
     ports:
-      - "5000:5001"
+      - "5000:5003"
+    volumes:
+      - ./src/web/similarTen/:/app
+
