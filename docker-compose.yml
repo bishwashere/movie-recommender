@@ -12,4 +12,15 @@ services:
     volumes:
       - ./src/dataset:/app/dataset
       - ./src/web/similarTen:/app
+  predict-webapp:
+    image: predict-webapp
+    # restart: always
+    build:
+      context: ./src/web/predict
+    container_name: predict-c
+    ports:
+      - "5003:5003"
+    volumes:
+      - ./src/dataset:/app/dataset
+      - ./src/web/predict:/app
 
