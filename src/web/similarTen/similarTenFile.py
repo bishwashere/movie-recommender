@@ -44,10 +44,10 @@ def preprocessing():
     #Construct a reverse map of indices and movie titles
     indices = pd.Series(df2.index, index=df2['title']).drop_duplicates()
 
-    return (df2['title'], cosine_sim, indices)
+    return (df2['title'], df2['homepage'], cosine_sim, indices)
 
 # Function that takes in movie title as input and outputs most similar movies
-def get_recommendations(title, df2_title, cosine_sim, indices):
+def get_recommendations(title, df2_title, df2_homepage, cosine_sim, indices):
     # Get the index of the movie that matches the title
     idx = indices[title]
 
@@ -64,15 +64,11 @@ def get_recommendations(title, df2_title, cosine_sim, indices):
     movie_indices = [i[0] for i in sim_scores]
 
     # Return the top 10 most similar movies
-    return df2_title.iloc[movie_indices]
-
-def recommend(recommendations_series):
-    output_string=''
-    for index, value in enumerate(recommendations_series):
-        output_string = output_string + str(index+1) + '. ' + value + '<br>'
-    return output_string
+    movies_list = df2_title.iloc[movie_indices]
+    homepage_list = df2_homepage.iloc[movie_indices]
+    return movies_list
 
 def run_all(title):
-    (df2_title, cosine_sim, indices) = preprocessing()
-    recommendations_series = get_recommendations(title, df2_title, cosine_sim, indices)
-    return recommend(recommendations_series)
+    (df2_title, df2_homepage, cosine_sim, indices) = preprocessing()
+    recommendations_series = get_recommendations(title, df2_title, df2_homepage, cosine_sim, indices)
+    return recommendations_series
