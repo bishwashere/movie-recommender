@@ -1,4 +1,4 @@
-version: '3'
+version: '3.3'
 
 services:
   similar-ten-webapp:
@@ -23,4 +23,14 @@ services:
     volumes:
       - ./src/dataset:/app/dataset
       - ./src/web/predict:/app
-
+  top-ten-webapp:
+    image: top-ten-webapp
+    # restart: always
+    build:
+      context: ./src/web/topTen
+    container_name: topTen-webapp-c
+    ports:
+      - "5002:5003"
+    volumes:
+      - ./src/dataset:/app/dataset
+      - ./src/web/topTen:/app
