@@ -39,7 +39,7 @@ def preprocessing():
     topTenString = ""
     
     for index, value in enumerate(topTen):
-        topTenString += str(index+1) + '. ' + value + '\n'
+        topTenString += str(index+1) + '. ' + value + '<br>'
 
     return topTenString
 

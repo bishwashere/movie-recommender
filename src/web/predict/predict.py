@@ -29,7 +29,7 @@ def svd(movierating, input_user_id, input_movie_id):
 
 	# What rating would userId=3 give for movieId 500
 	# this is helpful to estimate how a user could rate a movie based on his/her prevous ratings
-	rating = str(svd.predict(input_user_id, input_movie_id).est)
+	rating = str(svd.predict(int(input_user_id), int(input_movie_id)).est)
 	return rating
 
 def run_all(input_user_id, input_movie_id):

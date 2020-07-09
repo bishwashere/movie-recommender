@@ -3,7 +3,7 @@ version: '3.3'
 services:
   similar-ten-webapp:
     image: similar-ten-webapp
-    # restart: always
+    restart: always
     build:
       context: ./src/web/similarTen
     container_name: similarTen-webapp-c
@@ -14,7 +14,7 @@ services:
       - ./src/web/similarTen:/app
   predict-webapp:
     image: predict-webapp
-    # restart: always
+    restart: always
     build:
       context: ./src/web/predict
     container_name: predict-c
@@ -25,7 +25,7 @@ services:
       - ./src/web/predict:/app
   top-ten-webapp:
     image: top-ten-webapp
-    # restart: always
+    restart: always
     build:
       context: ./src/web/topTen
     container_name: topTen-webapp-c
