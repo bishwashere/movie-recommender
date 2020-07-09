@@ -12,7 +12,7 @@ from surprise.model_selection import cross_validate
 
 
 def preprocessing():
-	movierating = pd.read_csv('dataset/ratings_small.csv')
+	movierating = pd.read_csv('https://raw.githubusercontent.com/bishwashere/mvr/master/src/dataset/ratings_small.csv')
 	return movierating
 
 def svd(movierating, input_user_id, input_movie_id):

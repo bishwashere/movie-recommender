@@ -10,38 +10,36 @@ import numpy as np
 
 #Import TfIdfVectorizer from scikit-learn
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
+
+from sklearn.metrics.pairwise import linear_kernel, cosine_similarity
 
 def preprocessing():
-    df1=pd.read_csv('dataset/credits.csv')
-    df2=pd.read_csv('dataset/movies.csv')
-
-    df1.columns = ['id','tittle','cast','crew']
-    df2= df2.merge(df1,on='id')
-
-    # ---CONTENT BASED---
-
-    #Define a TF-IDF Vectorizer Object. Remove all english stop words such as 'the', 'a'
-    tfidf = TfidfVectorizer(stop_words='english')
+    df2=pd.read_csv('https://raw.githubusercontent.com/bishwashere/mvr/master/src/dataset/movies.csv')
 
     #Replace NaN with an empty string
     df2['overview'] = df2['overview'].fillna('')
 
-    #Construct the required TF-IDF matrix by fitting and transforming the data
-    tfidf_matrix = tfidf.fit_transform(df2['overview'])
+    smd = df2['title'] + df2['genres'] + df2['overview'] + df2['keywords']
+    # smd = smd.apply(lambda x: ' '.join(x))
 
-    #Output the shape of tfidf_matrix
-    #tfidf_matrix.shape
+    
+    # # Define a TF-IDF Vectorizer Object. Remove all english stop words such as 'the', 'a'
+    # tfidf = TfidfVectorizer(stop_words='english')
+    # # Construct the required TF-IDF matrix by fitting and transforming the data
+    # tfidf_matrix = tfidf.fit_transform(smd)
+    # # Import linear_kernel
+    # from sklearn.metrics.pairwise import linear_kernel
+    # # Compute the cosine similarity matrix
+    # cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
 
-    # Import linear_kernel
-    from sklearn.metrics.pairwise import linear_kernel
+    count = CountVectorizer(analyzer='word', ngram_range=(1, 2), min_df=0, stop_words='english')
+    count_matrix = count.fit_transform(smd)
+    cosine_sim = cosine_similarity(count_matrix, count_matrix)
+    smd = smd.reset_index()
 
-    # Compute the cosine similarity matrix
-    cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
 
-    #Construct a reverse map of indices and movie titles
-    indices = pd.Series(df2.index, index=df2['title']).drop_duplicates()
-
-    #Construct a reverse map of indices and movie titles
+    # Construct a reverse map of indices and movie titles
     indices = pd.Series(df2.index, index=df2['title']).drop_duplicates()
 
     return (df2['title'], cosine_sim, indices)

@@ -9,12 +9,8 @@ import pandas as pd
 import numpy as np
 
 def preprocessing():
-    df1=pd.read_csv('dataset/credits.csv')
-    df2=pd.read_csv('dataset/movies.csv')
+    df2=pd.read_csv('https://raw.githubusercontent.com/bishwashere/mvr/master/src/dataset/movies.csv')
 
-    df1.columns = ['id','tittle','cast','crew']
-    df2= df2.merge(df1,on='id')
-    
     # ---Demographic Filtering---
     C= df2['vote_average'].mean()
 
@@ -34,7 +30,7 @@ def preprocessing():
     #Sort movies based on score calculated above
     q_movies = q_movies.sort_values('score', ascending=False)
 
-    #Print the top 10 movies
+    # Print the top 10 movies
     topTen = q_movies['title'].head(10).tolist()
     topTenString = ""
     
